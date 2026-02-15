@@ -15,6 +15,7 @@ spec:
       containers:
       - name: static-site
         image: santoshmishra92/static-site:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
 ---
