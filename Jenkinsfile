@@ -14,13 +14,12 @@ pipeline {
                 }
             }
         }
-        stage('Deploy') {
-            steps {
-                sh '''
-                docker rm -f static-site || true
-                docker run -d -p 8081:80 --name static-site santoshmishra92/static-site:latest
-                '''
-            }
-        }
+stage('Deploy') {
+    steps {
+        sh '''
+        kubectl --kubeconfig=/home/jenkins/.kube/config apply -f k8s/deployment.yaml
+        '''
     }
+}
+}
 }
