@@ -18,7 +18,7 @@ pipeline {
             steps {
                 sh '''
                 docker ps -q --filter "name=static-site" | grep -q . && docker rm -f static-site || true
-                docker run -d -p 8080:80 --name static-site santoshmishra92/static-site:latest
+                docker run -d -p 8081:80 --name static-site santoshmishra92/static-site:latest
                 '''
             }
         }
