@@ -17,7 +17,14 @@ pipeline {
 stage('Deploy') {
     steps {
         sh '''
+        # Apply the deployment manifest
         kubectl --kubeconfig=/home/jenkins/.kube/config apply -f k8s/deployment.yaml
+
+        # Show current pods for visibility
+        kubectl --kubeconfig=/home/jenkins/.kube/config get pods -o wide
+
+        # Show the service to confirm NodePort exposure
+        kubectl --kubeconfig=/home/jenkins/.kube/config get svc static-site-service
         '''
     }
 }
