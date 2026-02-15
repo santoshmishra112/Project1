@@ -20,6 +20,12 @@ stage('Deploy') {
         # Apply the deployment manifest
         kubectl --kubeconfig=/home/jenkins/.kube/config apply -f k8s/deployment.yaml
 
+        # Force a rollout restart so pods pull the new image
+        kubectl --kubeconfig=/home/jenkins/.kube/config rollout restart deployment/static-site
+
+        # Wait until rollout completes
+        kubectl --kubeconfig=/home/jenkins/.kube/config rollout status deployment/static-site
+
         # Show current pods for visibility
         kubectl --kubeconfig=/home/jenkins/.kube/config get pods -o wide
 
